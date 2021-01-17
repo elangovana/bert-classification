@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.org/aws-samples/amazon-sagemaker-bert-classify-pytorch.svg?branch=master)](https://travis-ci.org/aws-samples/amazon-sagemaker-bert-classify-pytorch)
-
-# Amazon Sagemaker BERT text classification using PyTorch
+[![Build Status](https://travis-ci.org/elangovana/bert-classification.svg?branch=master)](https://travis-ci.org/elangovana/bert-classification)
+# BERT text classification SST2 using PyTorch
  
  We train  Stanford Sentiment Treebank - 2 (SST2) using BERT
  
