@@ -20,9 +20,9 @@ def main():
                         help="The input val dir", default=os.environ.get("SM_CHANNEL_VAL", "."))
 
     parser.add_argument("--datasetfactory",
-                        help="The dataset factory name e.g", required=True)
-    parser.add_argument("--classdir",
-                        help="The class file  dir", default=os.environ.get("SM_CHANNEL_CLASS", "."))
+                        help="The dataset factory name e.g datasets.sst2_dataset_factory.SST2DatasetFactory",
+                        required=True)
+
 
     parser.add_argument("--outdir", help="The output dir", default=os.environ.get("SM_OUTPUT_DATA_DIR", "."))
     parser.add_argument("--modeldir", help="The model dir", default=os.environ.get("SM_MODEL_DIR", "."))
@@ -54,7 +54,6 @@ def main():
 
     train_data_file = os.path.join(args.traindir, args.trainfile)
     val_data_file = os.path.join(args.valdir, args.valfile)
-    classes_file = os.path.join(args.classdir, args.classfile)
 
     b = Builder(train_data=train_data_file, val_data=val_data_file, dataset_factory_name=args.datasetfactory,
                 checkpoint_dir=args.checkpointdir, epochs=args.epochs,
