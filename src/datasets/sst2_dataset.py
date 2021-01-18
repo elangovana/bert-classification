@@ -41,7 +41,7 @@ class SST2Dataset(Dataset):
                 labels.append(label)
                 data.append(text)
 
-        self._logger.info("Loaded file {} with {} records ".format(input_file, len(data), Counter(labels)))
+        self._logger.info("Loaded file {} with {} records {}".format(input_file, len(data), Counter(labels)))
         return data, labels
 
     def __len__(self):
