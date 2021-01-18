@@ -82,9 +82,8 @@ class SST2SplitUtils:
         """
         # Confidence intervals
         # [0, 0.2], (0.2, 0.4], (0.4, 0.6], (0.6, 0.8], (0.8, 1.0]
-        if 0 <= confidence <= 0.4: return "Negative"
-        if 0.4 < confidence <= 0.6: return "Neutral"
-        if 0.6 < confidence <= 1.0: return "Positive"
+        if 0 <= confidence < 0.5: return "Negative"
+        return "Positive"
 
     def _load_splits(self, split_file):
         splits = {}
