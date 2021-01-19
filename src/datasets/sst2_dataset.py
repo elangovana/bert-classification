@@ -35,7 +35,7 @@ class SST2Dataset(Dataset):
                 text = r[0]
 
                 # Has labels labels
-                if len(r) == 2:
+                if len(r) > 1:
                     label = r[1]
 
                 labels.append(label)

@@ -56,7 +56,8 @@ class SST2SplitUtils:
                     missing_sen += 1
                     continue
                 phrase_id = dictionary_phrase_map[text]
-                id_data_map[split_id].append({"text": text, "label": phrase_sentiment[phrase_id]})
+                id_data_map[split_id].append(
+                    {"text": text, "label": phrase_sentiment[phrase_id], "phraseid": phrase_id})
 
             self._logger.warning("A {} out of {} were not found in dictionary".format(missing_sen, total_sen))
 
@@ -113,7 +114,7 @@ class SST2SplitUtils:
             csv_writer = csv.writer(f, delimiter='\t',
                                     quotechar='"', quoting=csv.QUOTE_MINIMAL)
             for r in data:
-                csv_writer.writerow([r["text"], r["label"]])
+                csv_writer.writerow([r["text"], r["label"], r["phraseid"]])
 
 
 def run_main():
