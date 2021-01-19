@@ -87,6 +87,7 @@ class Train:
 
             self._logger.debug("Running epoch {}".format(self.epochs))
 
+            model_network.zero_grad()
             for idx, batch in enumerate(train_iter):
                 self._logger.debug("Running batch {}".format(idx))
                 batch_x = batch[0].to(device=self._default_device)
@@ -98,7 +99,6 @@ class Train:
 
                 # Step 2. train
                 model_network.train()
-                model_network.zero_grad()
 
                 # Step 3. Run the forward pass
                 # words
