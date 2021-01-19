@@ -31,7 +31,7 @@ class TestSitTrain(TestCase):
         # Builder
         b = Builder(train_data=train_data_file, val_data=train_data_file,
                     dataset_factory_name="datasets.sst2_dataset_factory.SST2DatasetFactory",
-                    checkpoint_dir=tempdir, epochs=2,
+                    checkpoint_dir=tempdir, epochs=2, grad_accumulation_steps=1,
                     early_stopping_patience=2, batch_size=batch,
                     max_seq_len=sequence_len, model_dir=tempdir)
         b.set_tokensior(mock_tokenisor)
