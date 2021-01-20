@@ -5,7 +5,7 @@ from unittest import TestCase
 from utils.bc3ast_preprocess import BC3ASTPreprocess
 
 
-class test_bc3_ast_preprocess(TestCase):
+class TestBC3ASTPreprocess(TestCase):
     def test_process_handle(self):
         # Arrange
         data = """19938376	Plant Signal Behav	101291431	2009	Plant caspase-like proteases in plant.	Programmed cell death (PCD) is a genetically-controlled disassembly of the cell.
