@@ -29,4 +29,4 @@ class BC3ASTLabelMapper(BaseMapperBase):
 
     @property
     def positive_label_index(self) -> int:
-        return self.map("Positive")
+        return self.map("1")
