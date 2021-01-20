@@ -5,8 +5,9 @@ from datasets.sst2_dataset import SST2Dataset
 
 
 class TestSST2Dataset(TestCase):
+
     def test___getitem__(self):
-        file = os.path.join(os.path.dirname(__file__), "sample_sst2.csv")
+        file = os.path.join(os.path.dirname(__file__), "..", "sample_sst2.csv")
         sut = SST2Dataset(file)
         expected_y = "Positive"
         expected_x = "But he somehow pulls it off ."
