@@ -6,6 +6,7 @@ from utils.bc3ast_preprocess import BC3ASTPreprocess
 
 
 class TestBC3ASTPreprocess(TestCase):
+
     def test_process_handle(self):
         # Arrange
         data = """19938376	Plant Signal Behav	101291431	2009	Plant caspase-like proteases in plant.	Programmed cell death (PCD) is a genetically-controlled disassembly of the cell.
@@ -22,6 +23,30 @@ class TestBC3ASTPreprocess(TestCase):
 
         # Assert
         self.assertSequenceEqual(expected, output.getvalue())
+
+    def test_split(self):
+        # Arrange
+        data = """Test line 1.	1	19938376
+Test line 2.	2	19938376
+Test line 3.	2	19938376
+Test line 4.	1	19938376
+"""
+        expected_lines = StringIO(data).readlines()
+        sut = BC3ASTPreprocess()
+        output_train = StringIO()
+        output_test = StringIO()
+
+        # Act
+        sut.split(StringIO(data), outfile_handle_1=output_train, outfile_handle_2=output_test, split=.5)
+
+        # Assert
+        output_train.seek(0)
+        output_test.seek(0)
+        train_lines = output_train.readlines()
+        test_lines = output_test.readlines()
+
+        self.assertEqual(2, len(train_lines))
+        self.assertSequenceEqual(expected_lines, sorted(train_lines + test_lines))
 
     def test_process_file(self):
         # Arrange
