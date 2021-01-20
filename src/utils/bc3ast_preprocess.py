@@ -1,16 +1,17 @@
 import argparse
 import csv
 import logging
-
 import os
-
 import sys
+from io import StringIO
+
+from sklearn.model_selection import train_test_split
 
 
 class BC3ASTPreprocess:
     """
     Preprocess the Biocreative 3 Article classification
-    """
+"""
 
     @property
     def _logger(self):
@@ -20,6 +21,37 @@ class BC3ASTPreprocess:
         label_map = self._open_handle_wrapper(annotations_file_or_handle, "r", self._load_annotations)
         data = self._open_handle_wrapper(data_file_or_handler, "r", lambda f: self._load_data(f, label_map))
         self._open_handle_wrapper(outputfile_or_handle, "w", lambda f: self._write(data, f))
+
+    def split(self, processed_file_or_handle, outfile_handle_1, outfile_handle_2, split=0.8):
+        raw_lines, labels = self._open_handle_wrapper(processed_file_or_handle, "r", self._parse_processed_file)
+        train, val = train_test_split(raw_lines, stratify=labels, train_size=split,
+                                      shuffle=True, random_state=42)
+        self._open_handle_wrapper(outfile_handle_1, "w", lambda f: self._write_processed_file(train, f))
+        self._open_handle_wrapper(outfile_handle_2, "w", lambda f: self._write_processed_file(val, f))
+
+    def _parse_processed_file(self, handle):
+        sep = "\t"
+        raw_lines, labels = [], []
+        for raw_line in handle.readlines():
+            csv_reader = csv.reader(StringIO(raw_line), delimiter=sep,
+                                    quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            # Get label
+            line_parts = next(csv_reader)
+            label = line_parts[1]
+            labels.append(label)
+            raw_lines.append(raw_line)
+
+        return raw_lines, labels
+
+    def _write_processed_file(self, raw_lines, output_handle):
+        """
+        Writes processed file as is
+        :param raw_lines:
+        :param output_handle:
+        :return:
+        """
+        for raw_line in raw_lines:
+            output_handle.write(raw_line)
 
     def _open_handle_wrapper(self, handler_or_file, rw_flag, func):
         if not isinstance(handler_or_file, str): return func(handler_or_file)
