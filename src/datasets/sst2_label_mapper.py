@@ -7,7 +7,7 @@ class SST2LabelMapper(BaseMapperBase):
     """
 
     def __init__(self):
-        self._raw_labels = ["Negative", "Positive"]
+        self._raw_labels = ["0", "1"]
 
         self._map = {v: i for i, v in enumerate(self._raw_labels)}
 

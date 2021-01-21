@@ -30,6 +30,8 @@ class SST2Dataset(Dataset):
         with open(input_file, "r") as f:
             csv_reader = csv.reader(f, delimiter='\t',
                                     quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            # Skip header
+            next(csv_reader)
             for r in csv_reader:
                 label = None
                 text = r[0]

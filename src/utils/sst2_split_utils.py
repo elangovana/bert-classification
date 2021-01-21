@@ -84,8 +84,8 @@ class SST2SplitUtils:
         # Confidence intervals
         # [0, 0.2], (0.2, 0.4], (0.4, 0.6], (0.6, 0.8], (0.8, 1.0]
         if confidence < 0.5:
-            return "Negative"
-        return "Positive"
+            return "0"
+        return "1"
 
     def _load_splits(self, split_file):
         splits = {}
@@ -113,6 +113,7 @@ class SST2SplitUtils:
         with open(output_file, "w") as f:
             csv_writer = csv.writer(f, delimiter='\t',
                                     quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            csv_writer.writerow(["sentence", "label", "id"])
             for r in data:
                 csv_writer.writerow([r["text"], r["label"], r["phraseid"]])
 
